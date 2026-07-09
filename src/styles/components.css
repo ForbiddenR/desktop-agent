@@ -1086,6 +1086,20 @@ html[data-platform='linux'] .topbar {
   align-items: flex-start;
 }
 
+.steps-list__item span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  line-height: 1.4;
+}
+
+.steps-card .section-header {
+  min-width: 0;
+}
+
+.steps-card .section-header__meta {
+  text-align: right;
+}
+
 @media (max-height: 820px) {
   .task-header {
     min-height: 62px;
