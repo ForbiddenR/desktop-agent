@@ -390,6 +390,7 @@
 
 /* Topbar */
 .topbar {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(210px, 1fr) auto minmax(210px, 1fr);
   align-items: center;
@@ -397,6 +398,11 @@
   padding: 0 20px;
   background: rgba(255, 255, 255, 0.76);
   -webkit-app-region: drag;
+}
+
+html[data-platform='win32'] .topbar,
+html[data-platform='linux'] .topbar {
+  padding-right: 156px;
 }
 
 .topbar__left,
@@ -471,6 +477,37 @@
 .agent-selector:hover,
 .model-selector:hover {
   background: var(--bg-muted);
+}
+
+.windows-window-controls {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: var(--topbar-height);
+  display: flex;
+  align-items: flex-start;
+  -webkit-app-region: no-drag;
+}
+
+.windows-window-controls button {
+  width: 46px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  color: var(--text-secondary);
+  background: transparent;
+  transition: background 120ms var(--ease-out), color 120ms var(--ease-out);
+}
+
+.windows-window-controls button:hover {
+  color: var(--text-primary);
+  background: rgba(17, 24, 39, 0.08);
+}
+
+.windows-window-controls__close:hover {
+  color: #fff;
+  background: #c42b1c;
 }
 
 /* Task content */

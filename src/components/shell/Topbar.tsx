@@ -1,10 +1,37 @@
-import { ChevronDown, Menu, MoreHorizontal, Pause, Play, Share2 } from 'lucide-react'
+import { ChevronDown, Menu, Minus, MoreHorizontal, Pause, Play, Share2, Square, X } from 'lucide-react'
 import { NavIcon } from '../ui/NavIcon'
 import type { DashboardData } from '../../types/dashboard'
 
 type TopbarProps = {
   data: DashboardData
   onMenuClick: () => void
+}
+
+function WindowsWindowControls() {
+  const desktop = typeof window === 'undefined' ? undefined : window.desktop
+
+  if (!desktop?.windowControls || desktop.platform === 'darwin') {
+    return null
+  }
+
+  return (
+    <div className="windows-window-controls" aria-label="Window controls">
+      <button type="button" aria-label="Minimize window" onClick={desktop.windowControls.minimize}>
+        <Minus size={14} strokeWidth={2} />
+      </button>
+      <button type="button" aria-label="Maximize window" onClick={desktop.windowControls.toggleMaximize}>
+        <Square size={12} strokeWidth={1.9} />
+      </button>
+      <button
+        className="windows-window-controls__close"
+        type="button"
+        aria-label="Close window"
+        onClick={desktop.windowControls.close}
+      >
+        <X size={15} strokeWidth={2} />
+      </button>
+    </div>
+  )
 }
 
 export function Topbar({ data, onMenuClick }: TopbarProps) {
@@ -56,6 +83,8 @@ export function Topbar({ data, onMenuClick }: TopbarProps) {
           <MoreHorizontal size={18} />
         </button>
       </div>
+
+      <WindowsWindowControls />
     </header>
   )
 }

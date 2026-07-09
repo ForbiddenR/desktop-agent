@@ -23,29 +23,34 @@ function NavRow({ item }: { item: NavItem }) {
 }
 
 export function Sidebar({ data, isOpen, onClose }: SidebarProps) {
+  const desktopPlatform = typeof window === 'undefined' ? undefined : window.desktop?.platform
+  const showMacControls = !desktopPlatform || desktopPlatform === 'darwin'
+
   return (
     <aside className={`sidebar ${isOpen ? 'is-open' : ''}`.trim()} aria-label="Primary navigation">
       <div className="sidebar__header">
-        <div className="window-controls">
-          <button
-            className="window-control window-control--red"
-            type="button"
-            aria-label="Close window"
-            onClick={() => window.desktop?.windowControls?.close()}
-          />
-          <button
-            className="window-control window-control--yellow"
-            type="button"
-            aria-label="Minimize window"
-            onClick={() => window.desktop?.windowControls?.minimize()}
-          />
-          <button
-            className="window-control window-control--green"
-            type="button"
-            aria-label="Maximize window"
-            onClick={() => window.desktop?.windowControls?.toggleMaximize()}
-          />
-        </div>
+        {showMacControls ? (
+          <div className="window-controls">
+            <button
+              className="window-control window-control--red"
+              type="button"
+              aria-label="Close window"
+              onClick={() => window.desktop?.windowControls?.close()}
+            />
+            <button
+              className="window-control window-control--yellow"
+              type="button"
+              aria-label="Minimize window"
+              onClick={() => window.desktop?.windowControls?.minimize()}
+            />
+            <button
+              className="window-control window-control--green"
+              type="button"
+              aria-label="Maximize window"
+              onClick={() => window.desktop?.windowControls?.toggleMaximize()}
+            />
+          </div>
+        ) : null}
         <div className="brand-mark">
           <Command size={16} strokeWidth={2.4} />
         </div>
