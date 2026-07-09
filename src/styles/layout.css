@@ -118,6 +118,26 @@ html[data-runtime='desktop'] .browser-frame {
     grid-template-rows: auto;
     overflow: visible;
   }
+
+  html[data-runtime='desktop'] .browser-frame {
+    height: 100vh;
+    min-height: 0;
+  }
+
+  html[data-runtime='desktop'] .workspace-main {
+    grid-template-columns: minmax(0, 1fr) minmax(260px, var(--right-rail-width));
+    overflow: hidden;
+  }
+
+  html[data-runtime='desktop'] .workspace-content {
+    min-height: 0;
+  }
+
+  html[data-runtime='desktop'] .right-rail {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto minmax(0, 1fr);
+    overflow: auto;
+  }
 }
 
 @media (max-width: 900px) {
