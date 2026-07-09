@@ -21,6 +21,9 @@ win:
   target:
     - nsis
 
+portable:
+  artifactName: ${productName}-${version}-portable.${ext}
+
 mac:
   target:
     - dmg
