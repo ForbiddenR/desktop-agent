@@ -814,6 +814,18 @@ html[data-platform='linux'] .topbar {
   background: #fff;
 }
 
+.logs-panel.is-collapsed {
+  grid-template-rows: 42px;
+}
+
+.logs-panel.is-expanded {
+  height: clamp(120px, 18vh, 176px);
+}
+
+.logs-panel.is-collapsed .logs-panel__content {
+  display: none;
+}
+
 .logs-panel__tabs {
   display: flex;
   align-items: flex-end;
@@ -1090,6 +1102,14 @@ html[data-platform='linux'] .topbar {
 
   .logs-panel {
     grid-template-rows: 38px minmax(0, 1fr);
+  }
+
+  .logs-panel.is-collapsed {
+    grid-template-rows: 38px;
+  }
+
+  .logs-panel.is-expanded {
+    height: 132px;
   }
 
   .logs-panel__tab {

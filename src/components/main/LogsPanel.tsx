@@ -12,9 +12,13 @@ type LogsPanelProps = {
 
 export function LogsPanel({ logs }: LogsPanelProps) {
   const [activeTab, setActiveTab] = useState<TabName>('Logs')
+  const [isExpanded, setExpanded] = useState(false)
 
   return (
-    <section className="logs-panel" aria-label="Execution output">
+    <section
+      className={`logs-panel ${isExpanded ? 'is-expanded' : 'is-collapsed'}`.trim()}
+      aria-label="Execution output"
+    >
       <div className="logs-panel__tabs" role="tablist" aria-label="Output views">
         {tabs.map(tab => (
           <button
@@ -44,7 +48,13 @@ export function LogsPanel({ logs }: LogsPanelProps) {
         <button className="icon-button" type="button" aria-label="Refresh logs">
           <RotateCw size={15} />
         </button>
-        <button className="icon-button" type="button" aria-label="Expand logs">
+        <button
+          className="icon-button"
+          type="button"
+          aria-label={isExpanded ? 'Collapse logs' : 'Expand logs'}
+          aria-expanded={isExpanded}
+          onClick={() => setExpanded(current => !current)}
+        >
           <Expand size={15} />
         </button>
       </div>

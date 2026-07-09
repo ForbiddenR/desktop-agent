@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, shell, type IpcMainEvent } from 'electron'
+import { app, BrowserWindow, ipcMain, screen, shell, type IpcMainEvent } from 'electron'
 import path from 'node:path'
 import { pathToFileURL } from 'node:url'
 
@@ -31,6 +31,19 @@ function windowFromWebContents(event: IpcMainEvent) {
   return BrowserWindow.fromWebContents(event.sender) ?? mainWindow
 }
 
+function getInitialWindowBounds() {
+  const { workAreaSize } = screen.getPrimaryDisplay()
+  const width = Math.min(1440, Math.max(960, workAreaSize.width - 40), workAreaSize.width)
+  const height = Math.min(900, Math.max(560, workAreaSize.height - 40), workAreaSize.height)
+
+  return {
+    width,
+    height,
+    minWidth: Math.min(960, width),
+    minHeight: Math.min(560, height),
+  }
+}
+
 function registerWindowControls() {
   ipcMain.on('window:minimize', event => {
     windowFromWebContents(event)?.minimize()
@@ -56,11 +69,13 @@ function registerWindowControls() {
 }
 
 function createWindow() {
+  const bounds = getInitialWindowBounds()
+
   mainWindow = new BrowserWindow({
-    width: 1440,
-    height: 960,
-    minWidth: 1100,
-    minHeight: 760,
+    width: bounds.width,
+    height: bounds.height,
+    minWidth: bounds.minWidth,
+    minHeight: bounds.minHeight,
     show: false,
     frame: false,
     title: 'Agent Studio',
