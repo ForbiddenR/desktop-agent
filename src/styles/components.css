@@ -1140,6 +1140,10 @@ html[data-platform='linux'] .topbar {
   .steps-card {
     grid-column: span 2;
   }
+
+  html[data-runtime='desktop'] .steps-card {
+    grid-column: auto;
+  }
 }
 
 @media (max-width: 900px) {

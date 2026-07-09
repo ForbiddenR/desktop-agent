@@ -191,3 +191,67 @@ html[data-runtime='desktop'] .browser-frame {
     padding: 10px;
   }
 }
+
+html[data-runtime='desktop'] .app-page {
+  width: 100vw;
+  height: 100vh;
+  min-height: 0;
+  overflow: hidden;
+}
+
+html[data-runtime='desktop'] .browser-frame {
+  width: 100vw;
+  height: 100vh;
+  min-height: 0;
+  grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+  overflow: hidden;
+}
+
+html[data-runtime='desktop'] .workspace-shell {
+  min-height: 0;
+}
+
+html[data-runtime='desktop'] .workspace-main {
+  grid-template-columns: minmax(0, 1fr) minmax(260px, var(--right-rail-width));
+  overflow: hidden;
+}
+
+html[data-runtime='desktop'] .workspace-content {
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+html[data-runtime='desktop'] .right-rail {
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto minmax(0, 1fr);
+  overflow: auto;
+}
+
+html[data-runtime='desktop'] .browser-frame {
+  width: 100vw;
+  height: 100vh;
+  min-height: 0;
+  grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+}
+
+html[data-runtime='desktop'] .workspace-main {
+  min-height: 0;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, var(--right-rail-width));
+  overflow: hidden;
+}
+
+html[data-runtime='desktop'] .workspace-content {
+  min-height: 0;
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
+  overflow: hidden;
+}
+
+html[data-runtime='desktop'] .right-rail {
+  min-height: 0;
+  max-height: 100%;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto minmax(0, 1fr);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
