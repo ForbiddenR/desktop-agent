@@ -1,0 +1,26 @@
+appId: com.acme.agentstudio
+productName: Agent Studio
+asar: true
+npmRebuild: false
+
+directories:
+  output: release
+
+files:
+  - dist/**/*
+  - dist-electron/**/*
+  - package.json
+
+linux:
+  target:
+    - AppImage
+  category: Development
+  syncDesktopName: true
+
+win:
+  target:
+    - nsis
+
+mac:
+  target:
+    - dmg
