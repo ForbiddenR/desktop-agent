@@ -46,7 +46,7 @@
   min-width: 0;
   min-height: 0;
   display: grid;
-  grid-template-rows: auto minmax(260px, 1fr) auto 176px;
+  grid-template-rows: auto minmax(0, 1fr) auto minmax(120px, 176px);
   overflow: hidden;
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-card);
@@ -81,6 +81,21 @@ html[data-runtime='desktop'] .browser-frame {
   border: 0;
   border-radius: 0;
   box-shadow: none;
+}
+
+@media (max-height: 820px) {
+  .workspace-main {
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .workspace-content {
+    grid-template-rows: auto minmax(0, 1fr) auto minmax(104px, 140px);
+  }
+
+  .right-rail {
+    gap: 10px;
+  }
 }
 
 @media (max-width: 1180px) {
