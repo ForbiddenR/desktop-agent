@@ -1,4 +1,4 @@
-import { app, BrowserWindow, shell } from 'electron'
+import { app, BrowserWindow, ipcMain, shell, type IpcMainEvent } from 'electron'
 import path from 'node:path'
 import { pathToFileURL } from 'node:url'
 
@@ -27,6 +27,34 @@ function isAllowedNavigation(url: string) {
   return url === pathToFileURL(getRendererEntry()).href
 }
 
+function windowFromWebContents(event: IpcMainEvent) {
+  return BrowserWindow.fromWebContents(event.sender) ?? mainWindow
+}
+
+function registerWindowControls() {
+  ipcMain.on('window:minimize', event => {
+    windowFromWebContents(event)?.minimize()
+  })
+
+  ipcMain.on('window:toggle-maximize', event => {
+    const window = windowFromWebContents(event)
+
+    if (!window) {
+      return
+    }
+
+    if (window.isMaximized()) {
+      window.unmaximize()
+    } else {
+      window.maximize()
+    }
+  })
+
+  ipcMain.on('window:close', event => {
+    windowFromWebContents(event)?.close()
+  })
+}
+
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1440,
@@ -34,6 +62,7 @@ function createWindow() {
     minWidth: 1100,
     minHeight: 760,
     show: false,
+    frame: false,
     title: 'Agent Studio',
     autoHideMenuBar: true,
     backgroundColor: '#f8f8f9',
@@ -82,6 +111,7 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  registerWindowControls()
   createWindow()
 
   app.on('activate', () => {

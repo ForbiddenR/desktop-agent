@@ -34,6 +34,13 @@ select {
 button {
   color: inherit;
   cursor: pointer;
+  -webkit-app-region: no-drag;
+}
+
+textarea,
+input,
+select {
+  -webkit-app-region: no-drag;
 }
 
 button:focus-visible,

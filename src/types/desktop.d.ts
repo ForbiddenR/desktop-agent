@@ -10,6 +10,11 @@ declare global {
         electron?: string
         node?: string
       }
+      windowControls?: {
+        minimize: () => void
+        toggleMaximize: () => void
+        close: () => void
+      }
     }
   }
 }
