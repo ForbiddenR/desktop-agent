@@ -1155,9 +1155,6 @@ html[data-platform='linux'] .topbar {
     grid-column: span 2;
   }
 
-  html[data-runtime='desktop'] .steps-card {
-    grid-column: auto;
-  }
 }
 
 @media (max-width: 900px) {
@@ -1272,5 +1269,27 @@ html[data-platform='linux'] .topbar {
 
   .code-preview__line {
     grid-template-columns: 36px minmax(380px, 1fr);
+  }
+}
+
+@media (max-width: 1179px) {
+  html[data-runtime='desktop'] .topbar {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px;
+    padding: 0 156px 0 12px;
+  }
+
+  html[data-runtime='desktop'] .topbar__center {
+    display: none;
+  }
+
+  html[data-runtime='desktop'] .topbar__actions .toolbar-button {
+    width: 36px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  html[data-runtime='desktop'] .topbar__actions .toolbar-button span {
+    display: none;
   }
 }
