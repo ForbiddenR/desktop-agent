@@ -59,6 +59,12 @@
   background: var(--bg-muted);
 }
 
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+  transform: none !important;
+}
+
 .status-pill {
   display: inline-flex;
   align-items: center;
@@ -881,6 +887,16 @@ html[data-platform='linux'] .topbar {
   background: var(--success);
 }
 
+.live-indicator.is-idle span {
+  background: var(--text-muted);
+  box-shadow: none;
+}
+
+.logs-panel__actions .icon-button.is-active {
+  color: var(--brand-blue);
+  background: var(--brand-blue-soft);
+}
+
 .text-button {
   min-height: 30px;
   padding: 0 10px;
@@ -940,6 +956,28 @@ html[data-platform='linux'] .topbar {
 
 .empty-tab strong {
   color: var(--text-primary);
+}
+
+.artifact-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.backend-error {
+  position: fixed;
+  inset: auto 22px 22px auto;
+  z-index: 100;
+  max-width: min(420px, calc(100vw - 44px));
+  padding: 11px 14px;
+  border: 1px solid rgba(255, 95, 86, 0.24);
+  border-radius: 10px;
+  color: #9f2d28;
+  background: #fff1f0;
+  box-shadow: var(--shadow-card);
+  font-size: 12px;
+  font-weight: 650;
 }
 
 /* Right rail cards */
@@ -1308,6 +1346,24 @@ html[data-platform='linux'] .topbar {
 
   .code-preview__line {
     grid-template-columns: 36px minmax(380px, 1fr);
+  }
+}
+
+@media (min-width: 1180px) and (max-width: 1320px) {
+  html[data-runtime='desktop'] .topbar {
+    grid-template-columns: minmax(160px, 1fr) auto minmax(150px, 1fr);
+    gap: 8px;
+    padding-left: 12px;
+  }
+
+  html[data-runtime='desktop'] .topbar__actions .toolbar-button {
+    width: 36px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  html[data-runtime='desktop'] .topbar__actions .toolbar-button span {
+    display: none;
   }
 }
 

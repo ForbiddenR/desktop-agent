@@ -20,6 +20,8 @@
     "build:web": "tsc --noEmit && vite build",
     "build:electron": "tsc -p tsconfig.electron.json",
     "build": "npm run build:web && npm run build:electron",
+    "test:backend": "npm run build:electron && node --test dist-electron/task-backend.test.cjs",
+    "test:smoke": "npm run build && xvfb-run -a electron --no-sandbox --disable-gpu dist-electron/smoke.cjs",
     "pack": "npm run build && electron-builder --dir",
     "dist:desktop": "npm run build && electron-builder",
     "preview": "vite preview --host 0.0.0.0"

@@ -17,9 +17,10 @@ const contextLabels = {
 
 type ContextCardProps = {
   items: ContextItem[]
+  onAdd: () => void
 }
 
-export function ContextCard({ items }: ContextCardProps) {
+export function ContextCard({ items, onAdd }: ContextCardProps) {
   return (
     <SurfaceCard className="context-card">
       <SectionHeader title="Context" meta={`${items.length} items`} />
@@ -36,7 +37,7 @@ export function ContextCard({ items }: ContextCardProps) {
           )
         })}
       </div>
-      <button className="add-context-button" type="button">
+      <button className="add-context-button" type="button" onClick={onAdd}>
         <Plus size={16} />
         <span>Add context</span>
       </button>

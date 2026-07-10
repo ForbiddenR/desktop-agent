@@ -1,10 +1,22 @@
-import { app, BrowserWindow, ipcMain, screen, shell, type IpcMainEvent } from 'electron'
+import {
+  app,
+  BrowserWindow,
+  ipcMain,
+  screen,
+  shell,
+  type IpcMainEvent,
+} from 'electron'
 import path from 'node:path'
 import { pathToFileURL } from 'node:url'
+import { TaskBackend } from './task-backend.cjs'
+import { registerTaskIpc } from './task-ipc.cjs'
 
 const DEV_SERVER_URL = process.env.VITE_DEV_SERVER_URL ?? 'http://127.0.0.1:5173'
+const DEV_SERVER_ORIGIN = new URL(DEV_SERVER_URL).origin
 
 let mainWindow: BrowserWindow | null = null
+let taskBackend: TaskBackend | null = null
+let isQuitting = false
 
 function isSafeExternalUrl(url: string) {
   try {
@@ -21,7 +33,11 @@ function getRendererEntry() {
 
 function isAllowedNavigation(url: string) {
   if (!app.isPackaged) {
-    return url.startsWith(DEV_SERVER_URL)
+    try {
+      return new URL(url).origin === DEV_SERVER_ORIGIN
+    } catch {
+      return false
+    }
   }
 
   return url === pathToFileURL(getRendererEntry()).href
@@ -125,15 +141,38 @@ function createWindow() {
   }
 }
 
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
+  taskBackend = new TaskBackend(app.getPath('userData'))
+  await taskBackend.initialize()
   registerWindowControls()
+  registerTaskIpc({
+    backend: taskBackend,
+    getMainWindow: () => mainWindow,
+    isTrustedUrl: isAllowedNavigation,
+  })
   createWindow()
+
+  taskBackend.subscribe(snapshot => {
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.webContents.send('agent:state-changed', snapshot)
+    }
+  })
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
       createWindow()
     }
   })
+})
+
+app.on('before-quit', event => {
+  if (!taskBackend || isQuitting) {
+    return
+  }
+
+  event.preventDefault()
+  isQuitting = true
+  void taskBackend.dispose().finally(() => app.quit())
 })
 
 app.on('window-all-closed', () => {

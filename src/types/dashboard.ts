@@ -56,6 +56,7 @@ export type ContextItem = {
   id: string
   label: string
   kind: 'docs' | 'folder' | 'file'
+  path?: string
 }
 
 export type LogEntry = {
@@ -102,6 +103,7 @@ export type TimelineArtifactItem = {
   time: string
   text: string
   artifactLabel: string
+  artifactPath?: string
   accent: AccentColor
 }
 
@@ -112,6 +114,8 @@ export type TimelineItem =
   | TimelineArtifactItem
 
 export type DashboardData = {
+  revision?: number
+  taskId?: string
   workspaceName: string
   projectName: string
   selectedAgent: string
@@ -132,3 +136,20 @@ export type DashboardData = {
   timeline: TimelineItem[]
   logs: LogEntry[]
 }
+
+export type TaskSnapshot = Pick<
+  DashboardData,
+  | 'revision'
+  | 'taskId'
+  | 'taskTitle'
+  | 'taskStatus'
+  | 'progress'
+  | 'startedAt'
+  | 'elapsed'
+  | 'estimatedFinish'
+  | 'steps'
+  | 'tools'
+  | 'contextItems'
+  | 'timeline'
+  | 'logs'
+>

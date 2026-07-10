@@ -1,6 +1,8 @@
 import { AppShell } from './components/shell/AppShell'
-import { agentStudioData } from './data/agentStudioMock'
+import { useAgentStudio } from './hooks/useAgentStudio'
 
 export default function App() {
-  return <AppShell data={agentStudioData} />
+  const { data, actions, isBusy, error } = useAgentStudio()
+
+  return <AppShell data={data} actions={actions} isBusy={isBusy} error={error} />
 }

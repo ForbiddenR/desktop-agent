@@ -4,7 +4,11 @@ import type { DashboardData } from '../../types/dashboard'
 
 type TopbarProps = {
   data: DashboardData
+  isBusy: boolean
   onMenuClick: () => void
+  onRun: () => void
+  onPause: () => void
+  onShare: () => void
 }
 
 function WindowsWindowControls() {
@@ -34,7 +38,7 @@ function WindowsWindowControls() {
   )
 }
 
-export function Topbar({ data, onMenuClick }: TopbarProps) {
+export function Topbar({ data, isBusy, onMenuClick, onRun, onPause, onShare }: TopbarProps) {
   return (
     <header className="topbar">
       <div className="topbar__left">
@@ -67,15 +71,25 @@ export function Topbar({ data, onMenuClick }: TopbarProps) {
       </div>
 
       <div className="topbar__actions">
-        <button className="toolbar-button" type="button">
+        <button
+          className="toolbar-button"
+          type="button"
+          disabled={isBusy || data.taskStatus !== 'paused'}
+          onClick={onRun}
+        >
           <Play size={15} fill="currentColor" />
           <span>Run</span>
         </button>
-        <button className="toolbar-button" type="button">
+        <button
+          className="toolbar-button"
+          type="button"
+          disabled={isBusy || data.taskStatus !== 'running'}
+          onClick={onPause}
+        >
           <Pause size={15} fill="currentColor" />
           <span>Pause</span>
         </button>
-        <button className="toolbar-button" type="button">
+        <button className="toolbar-button" type="button" disabled={isBusy} onClick={onShare}>
           <Share2 size={15} />
           <span>Share</span>
         </button>

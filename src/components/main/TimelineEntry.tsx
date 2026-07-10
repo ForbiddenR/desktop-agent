@@ -66,7 +66,13 @@ function TimelineScaffold({
   )
 }
 
-export function TimelineEntry({ item }: { item: TimelineItem }) {
+export function TimelineEntry({
+  item,
+  onOpenArtifact,
+}: {
+  item: TimelineItem
+  onOpenArtifact: (artifactId: string) => Promise<void>
+}) {
   if (item.kind === 'summary') {
     return (
       <TimelineScaffold item={item}>
@@ -121,7 +127,12 @@ export function TimelineEntry({ item }: { item: TimelineItem }) {
     <TimelineScaffold item={item}>
       <div className="timeline-entry__row">
         <p className="timeline-entry__text">{item.text}</p>
-        <button className="artifact-chip" type="button">
+        <button
+          className="artifact-chip"
+          type="button"
+          disabled={!item.artifactPath}
+          onClick={() => void onOpenArtifact(item.id).catch(() => undefined)}
+        >
           <FileJson size={14} />
           <span>{item.artifactLabel}</span>
           <span className="artifact-chip__sync" aria-hidden="true" />

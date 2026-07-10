@@ -9,6 +9,8 @@ directories:
 files:
   - dist/**/*
   - dist-electron/**/*
+  - '!dist-electron/*.test.cjs'
+  - '!dist-electron/smoke.cjs'
   - package.json
 
 linux:

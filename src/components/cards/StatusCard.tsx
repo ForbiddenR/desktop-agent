@@ -4,6 +4,12 @@ import { StatusPill } from '../ui/StatusPill'
 import { SurfaceCard } from '../ui/SurfaceCard'
 import type { DashboardData } from '../../types/dashboard'
 
+const statusLabels = {
+  running: 'Running',
+  paused: 'Paused',
+  complete: 'Complete',
+}
+
 type StatusCardProps = {
   data: DashboardData
 }
@@ -13,7 +19,7 @@ export function StatusCard({ data }: StatusCardProps) {
     <SurfaceCard className="status-card" aria-labelledby="task-status-title">
       <SectionHeader
         title="Task Status"
-        meta={<StatusPill status={data.taskStatus}>Running</StatusPill>}
+        meta={<StatusPill status={data.taskStatus}>{statusLabels[data.taskStatus]}</StatusPill>}
       />
       <div className="status-card__progress">
         <LinearProgress value={data.progress} label="Task completion" />

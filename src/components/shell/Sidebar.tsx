@@ -6,6 +6,7 @@ type SidebarProps = {
   data: DashboardData
   isOpen: boolean
   onClose: () => void
+  onNewTask: () => void
 }
 
 function NavRow({ item }: { item: NavItem }) {
@@ -22,7 +23,7 @@ function NavRow({ item }: { item: NavItem }) {
   )
 }
 
-export function Sidebar({ data, isOpen, onClose }: SidebarProps) {
+export function Sidebar({ data, isOpen, onClose, onNewTask }: SidebarProps) {
   const desktopPlatform = typeof window === 'undefined' ? undefined : window.desktop?.platform
   const showMacControls = !desktopPlatform || desktopPlatform === 'darwin'
 
@@ -65,7 +66,7 @@ export function Sidebar({ data, isOpen, onClose }: SidebarProps) {
         </button>
       </div>
 
-      <button className="new-task-button" type="button">
+      <button className="new-task-button" type="button" onClick={onNewTask}>
         <NavIcon name="plus" />
         <span>New Task</span>
         <kbd>⌘K</kbd>
