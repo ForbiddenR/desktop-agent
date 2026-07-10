@@ -34,7 +34,7 @@ function windowFromWebContents(event: IpcMainEvent) {
 function getInitialWindowBounds() {
   const { workAreaSize } = screen.getPrimaryDisplay()
   const width = Math.min(1440, Math.max(960, workAreaSize.width - 40), workAreaSize.width)
-  const height = Math.min(900, Math.max(560, workAreaSize.height - 40), workAreaSize.height)
+  const height = Math.min(1040, Math.max(560, workAreaSize.height - 24), workAreaSize.height)
 
   return {
     width,

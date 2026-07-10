@@ -1100,6 +1100,45 @@ html[data-platform='linux'] .topbar {
   text-align: right;
 }
 
+@media (min-width: 1180px) {
+  html[data-runtime='desktop'] .right-rail .surface-card {
+    padding: 14px;
+  }
+
+  html[data-runtime='desktop'] .right-rail .section-header {
+    margin-bottom: 12px;
+  }
+
+  html[data-runtime='desktop'] .status-card__progress {
+    margin-bottom: 14px;
+  }
+
+  html[data-runtime='desktop'] .status-card__meta div {
+    min-height: 30px;
+  }
+
+  html[data-runtime='desktop'] .tool-row {
+    min-height: 36px;
+  }
+
+  html[data-runtime='desktop'] .context-list {
+    gap: 2px;
+  }
+
+  html[data-runtime='desktop'] .context-row {
+    min-height: 27px;
+  }
+
+  html[data-runtime='desktop'] .add-context-button {
+    min-height: 32px;
+    margin-top: 10px;
+  }
+
+  html[data-runtime='desktop'] .steps-list {
+    gap: 9px;
+  }
+}
+
 @media (max-height: 820px) {
   .task-header {
     min-height: 62px;
@@ -1146,7 +1185,7 @@ html[data-platform='linux'] .topbar {
   }
 }
 
-@media (max-width: 1180px) {
+@media (max-width: 1179px) {
   .right-rail .surface-card {
     min-height: 0;
   }
